@@ -6,8 +6,10 @@ import { type AppRouter } from "@/server/api/root";
 
 const getBaseUrl = () => {
   if (typeof window !== "undefined") return "";
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-  return `http://localhost:${process.env.PORT ?? 3000}`;
+
+  if (process.env.NEXT_PUBLIC_API_URL)
+    return `https://${process.env.NEXT_PUBLIC_API_URL}`;
+  return `https://nwlhd85eue.execute-api.us-east-1.amazonaws.com/Dell`;
 };
 
 export const api = createTRPCNext<AppRouter>({

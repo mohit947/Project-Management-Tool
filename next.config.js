@@ -17,6 +17,20 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  async rewrites() {
+    return [
+      {
+        source: "/api/trpc/:path*",
+        destination:
+          "https://nwlhd85eue.execute-api.us-east-1.amazonaws.com/Dell/api/trpc/:path*",
+      },
+      {
+        source: "/api/auth/:path*",
+        destination:
+          "https://nwlhd85eue.execute-api.us-east-1.amazonaws.com/Dell/api/auth/:path*",
+      },
+    ];
+  },
 };
 
 export default config;
