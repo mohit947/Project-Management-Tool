@@ -1,0 +1,1040 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Dell-project-management-app-": {
+        "id": "Dell-project-management-app-",
+        "path": "Dell-project-management-app-",
+        "children": {
+          "CustomResourceHandler": {
+            "id": "CustomResourceHandler",
+            "path": "Dell-project-management-app-/CustomResourceHandler",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "Dell-project-management-app-/CustomResourceHandler/ServiceRole",
+                "children": {
+                  "ImportServiceRole": {
+                    "id": "ImportServiceRole",
+                    "path": "Dell-project-management-app-/CustomResourceHandler/ServiceRole/ImportServiceRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.179.0",
+                      "metadata": []
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "Dell-project-management-app-/CustomResourceHandler/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ],
+                        "tags": [
+                          {
+                            "key": "sst:app",
+                            "value": "project-management-app"
+                          },
+                          {
+                            "key": "sst:stage",
+                            "value": "Dell"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.179.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.179.0",
+                  "metadata": []
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "Dell-project-management-app-/CustomResourceHandler/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "Dell-project-management-app-/CustomResourceHandler/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.179.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "Dell-project-management-app-/CustomResourceHandler/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.179.0",
+                      "metadata": []
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.179.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "Dell-project-management-app-/CustomResourceHandler/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": "cdk-hnb659fds-assets-130119007268-us-east-1",
+                      "s3Key": "ed3f4b9a18da1c74484a8bdd39cc11e998021b8a2b37fd3fa777dff625f9f7a4.zip"
+                    },
+                    "handler": "index.handler",
+                    "memorySize": 1024,
+                    "role": {
+                      "Fn::GetAtt": [
+                        "CustomResourceHandlerServiceRole41AEC181",
+                        "Arn"
+                      ]
+                    },
+                    "runtime": "nodejs22.x",
+                    "tags": [
+                      {
+                        "key": "sst:app",
+                        "value": "project-management-app"
+                      },
+                      {
+                        "key": "sst:stage",
+                        "value": "Dell"
+                      }
+                    ],
+                    "timeout": 900
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.179.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.Function",
+              "version": "2.179.0",
+              "metadata": []
+            }
+          },
+          "Api": {
+            "id": "Api",
+            "path": "Dell-project-management-app-/Api",
+            "children": {
+              "LogGroup": {
+                "id": "LogGroup",
+                "path": "Dell-project-management-app-/Api/LogGroup",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "Dell-project-management-app-/Api/LogGroup/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
+                      "aws:cdk:cloudformation:props": {
+                        "tags": [
+                          {
+                            "key": "sst:app",
+                            "value": "project-management-app"
+                          },
+                          {
+                            "key": "sst:stage",
+                            "value": "Dell"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_logs.CfnLogGroup",
+                      "version": "2.179.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_logs.LogGroup",
+                  "version": "2.179.0",
+                  "metadata": []
+                }
+              },
+              "Api": {
+                "id": "Api",
+                "path": "Dell-project-management-app-/Api/Api",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "Dell-project-management-app-/Api/Api/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::RestApi",
+                      "aws:cdk:cloudformation:props": {
+                        "name": "Dell-project-management-app-Api",
+                        "tags": [
+                          {
+                            "key": "sst:app",
+                            "value": "project-management-app"
+                          },
+                          {
+                            "key": "sst:stage",
+                            "value": "Dell"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.CfnRestApi",
+                      "version": "2.179.0"
+                    }
+                  },
+                  "CloudWatchRole": {
+                    "id": "CloudWatchRole",
+                    "path": "Dell-project-management-app-/Api/Api/CloudWatchRole",
+                    "children": {
+                      "ImportCloudWatchRole": {
+                        "id": "ImportCloudWatchRole",
+                        "path": "Dell-project-management-app-/Api/Api/CloudWatchRole/ImportCloudWatchRole",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.179.0",
+                          "metadata": []
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "Dell-project-management-app-/Api/Api/CloudWatchRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "apigateway.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "managedPolicyArns": [
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+                                  ]
+                                ]
+                              }
+                            ],
+                            "tags": [
+                              {
+                                "key": "sst:app",
+                                "value": "project-management-app"
+                              },
+                              {
+                                "key": "sst:stage",
+                                "value": "Dell"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.179.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.179.0",
+                      "metadata": []
+                    }
+                  },
+                  "Account": {
+                    "id": "Account",
+                    "path": "Dell-project-management-app-/Api/Api/Account",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Account",
+                      "aws:cdk:cloudformation:props": {
+                        "cloudWatchRoleArn": {
+                          "Fn::GetAtt": [
+                            "ApiCloudWatchRoleCCA56614",
+                            "Arn"
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.CfnAccount",
+                      "version": "2.179.0"
+                    }
+                  },
+                  "Deployment": {
+                    "id": "Deployment",
+                    "path": "Dell-project-management-app-/Api/Api/Deployment",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "Dell-project-management-app-/Api/Api/Deployment/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ApiGateway::Deployment",
+                          "aws:cdk:cloudformation:props": {
+                            "description": "Automatically created by the RestApi construct",
+                            "restApiId": {
+                              "Ref": "ApiCD79AAA0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.CfnDeployment",
+                          "version": "2.179.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.Deployment",
+                      "version": "2.179.0",
+                      "metadata": []
+                    }
+                  },
+                  "DeploymentStage.Dell": {
+                    "id": "DeploymentStage.Dell",
+                    "path": "Dell-project-management-app-/Api/Api/DeploymentStage.Dell",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "Dell-project-management-app-/Api/Api/DeploymentStage.Dell/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ApiGateway::Stage",
+                          "aws:cdk:cloudformation:props": {
+                            "accessLogSetting": {
+                              "destinationArn": {
+                                "Fn::GetAtt": [
+                                  "ApiLogGroup1717FE17",
+                                  "Arn"
+                                ]
+                              },
+                              "format": "{\"requestTime\":\"$context.requestTime\",\"requestId\":\"$context.requestId\",\"httpMethod\":\"$context.httpMethod\",\"path\":\"$context.path\",\"resourcePath\":\"$context.resourcePath\",\"status\":$context.status,\"responseLatency\":$context.responseLatency,\"xrayTraceId\":\"$context.xrayTraceId\",\"integrationRequestId\":\"$context.integration.requestId\",\"functionResponseStatus\":\"$context.integration.status\",\"integrationLatency\":\"$context.integration.latency\",\"integrationServiceStatus\":\"$context.integration.integrationStatus\",\"ip\":\"$context.identity.sourceIp\",\"userAgent\":\"$context.identity.userAgent\",\"principalId\":\"$context.authorizer.principalId\"}"
+                            },
+                            "deploymentId": {
+                              "Ref": "ApiDeploymentFE1E728289ad8ce293406d3c9c0dcb29b3d6c976"
+                            },
+                            "restApiId": {
+                              "Ref": "ApiCD79AAA0"
+                            },
+                            "stageName": "Dell",
+                            "tags": [
+                              {
+                                "key": "sst:app",
+                                "value": "project-management-app"
+                              },
+                              {
+                                "key": "sst:stage",
+                                "value": "Dell"
+                              }
+                            ],
+                            "tracingEnabled": true
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.CfnStage",
+                          "version": "2.179.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.Stage",
+                      "version": "2.179.0",
+                      "metadata": []
+                    }
+                  },
+                  "Endpoint": {
+                    "id": "Endpoint",
+                    "path": "Dell-project-management-app-/Api/Api/Endpoint",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnOutput",
+                      "version": "2.179.0"
+                    }
+                  },
+                  "Default": {
+                    "id": "Default",
+                    "path": "Dell-project-management-app-/Api/Api/Default",
+                    "children": {
+                      "OPTIONS": {
+                        "id": "OPTIONS",
+                        "path": "Dell-project-management-app-/Api/Api/Default/OPTIONS",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "Dell-project-management-app-/Api/Api/Default/OPTIONS/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "apiKeyRequired": false,
+                                "authorizationType": "NONE",
+                                "httpMethod": "OPTIONS",
+                                "integration": {
+                                  "type": "MOCK",
+                                  "requestTemplates": {
+                                    "application/json": "{ statusCode: 200 }"
+                                  },
+                                  "integrationResponses": [
+                                    {
+                                      "statusCode": "204",
+                                      "responseParameters": {
+                                        "method.response.header.Access-Control-Allow-Headers": "'*'",
+                                        "method.response.header.Access-Control-Allow-Origin": "'*'",
+                                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+                                      }
+                                    }
+                                  ]
+                                },
+                                "methodResponses": [
+                                  {
+                                    "statusCode": "204",
+                                    "responseParameters": {
+                                      "method.response.header.Access-Control-Allow-Headers": true,
+                                      "method.response.header.Access-Control-Allow-Origin": true,
+                                      "method.response.header.Access-Control-Allow-Methods": true
+                                    }
+                                  }
+                                ],
+                                "resourceId": {
+                                  "Fn::GetAtt": [
+                                    "ApiCD79AAA0",
+                                    "RootResourceId"
+                                  ]
+                                },
+                                "restApiId": {
+                                  "Ref": "ApiCD79AAA0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                              "version": "2.179.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                          "version": "2.179.0",
+                          "metadata": []
+                        }
+                      },
+                      "GET": {
+                        "id": "GET",
+                        "path": "Dell-project-management-app-/Api/Api/Default/GET",
+                        "children": {
+                          "ApiPermission.DellprojectmanagementappApi6EA08433.GET..": {
+                            "id": "ApiPermission.DellprojectmanagementappApi6EA08433.GET..",
+                            "path": "Dell-project-management-app-/Api/Api/Default/GET/ApiPermission.DellprojectmanagementappApi6EA08433.GET..",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "ApiLambdaGETB1714EF3",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":execute-api:us-east-1:130119007268:",
+                                      {
+                                        "Ref": "ApiCD79AAA0"
+                                      },
+                                      "/",
+                                      {
+                                        "Ref": "ApiDeploymentStageDell7BA9D724"
+                                      },
+                                      "/GET/"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.179.0"
+                            }
+                          },
+                          "ApiPermission.Test.DellprojectmanagementappApi6EA08433.GET..": {
+                            "id": "ApiPermission.Test.DellprojectmanagementappApi6EA08433.GET..",
+                            "path": "Dell-project-management-app-/Api/Api/Default/GET/ApiPermission.Test.DellprojectmanagementappApi6EA08433.GET..",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "ApiLambdaGETB1714EF3",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":execute-api:us-east-1:130119007268:",
+                                      {
+                                        "Ref": "ApiCD79AAA0"
+                                      },
+                                      "/test-invoke-stage/GET/"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.179.0"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "Dell-project-management-app-/Api/Api/Default/GET/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "authorizationType": "NONE",
+                                "httpMethod": "GET",
+                                "integration": {
+                                  "type": "AWS_PROXY",
+                                  "uri": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+                                        {
+                                          "Fn::GetAtt": [
+                                            "ApiLambdaGETB1714EF3",
+                                            "Arn"
+                                          ]
+                                        },
+                                        "/invocations"
+                                      ]
+                                    ]
+                                  },
+                                  "integrationHttpMethod": "POST"
+                                },
+                                "resourceId": {
+                                  "Fn::GetAtt": [
+                                    "ApiCD79AAA0",
+                                    "RootResourceId"
+                                  ]
+                                },
+                                "restApiId": {
+                                  "Ref": "ApiCD79AAA0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                              "version": "2.179.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                          "version": "2.179.0",
+                          "metadata": []
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.ResourceBase",
+                      "version": "2.179.0",
+                      "metadata": []
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.RestApi",
+                  "version": "2.179.0",
+                  "metadata": []
+                }
+              },
+              "Lambda_GET_--": {
+                "id": "Lambda_GET_--",
+                "path": "Dell-project-management-app-/Api/Lambda_GET_--",
+                "children": {
+                  "ServiceRole": {
+                    "id": "ServiceRole",
+                    "path": "Dell-project-management-app-/Api/Lambda_GET_--/ServiceRole",
+                    "children": {
+                      "ImportServiceRole": {
+                        "id": "ImportServiceRole",
+                        "path": "Dell-project-management-app-/Api/Lambda_GET_--/ServiceRole/ImportServiceRole",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.179.0",
+                          "metadata": []
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "Dell-project-management-app-/Api/Lambda_GET_--/ServiceRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "managedPolicyArns": [
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                  ]
+                                ]
+                              }
+                            ],
+                            "tags": [
+                              {
+                                "key": "sst:app",
+                                "value": "project-management-app"
+                              },
+                              {
+                                "key": "sst:stage",
+                                "value": "Dell"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.179.0"
+                        }
+                      },
+                      "DefaultPolicy": {
+                        "id": "DefaultPolicy",
+                        "path": "Dell-project-management-app-/Api/Lambda_GET_--/ServiceRole/DefaultPolicy",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "Dell-project-management-app-/Api/Lambda_GET_--/ServiceRole/DefaultPolicy/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                              "aws:cdk:cloudformation:props": {
+                                "policyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": [
+                                        "xray:PutTraceSegments",
+                                        "xray:PutTelemetryRecords"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": "*"
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "policyName": "ApiLambdaGETServiceRoleDefaultPolicy013A8DEA",
+                                "roles": [
+                                  {
+                                    "Ref": "ApiLambdaGETServiceRole210B6205"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                              "version": "2.179.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Policy",
+                          "version": "2.179.0",
+                          "metadata": []
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.179.0",
+                      "metadata": []
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "Dell-project-management-app-/Api/Lambda_GET_--/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                      "aws:cdk:cloudformation:props": {
+                        "architectures": [
+                          "x86_64"
+                        ],
+                        "code": {
+                          "s3Bucket": "cdk-hnb659fds-assets-130119007268-us-east-1",
+                          "s3Key": "946b5913da4401c408683f22e4e3d519f2e1fd11462bd6940d407765f47e7e91.zip"
+                        },
+                        "environment": {
+                          "variables": {
+                            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+                            "SST_APP": "project-management-app",
+                            "SST_STAGE": "Dell",
+                            "SST_SSM_PREFIX": "/sst/project-management-app/Dell/"
+                          }
+                        },
+                        "ephemeralStorage": {
+                          "size": 512
+                        },
+                        "handler": "functions/lambda.handler",
+                        "memorySize": 1024,
+                        "role": {
+                          "Fn::GetAtt": [
+                            "ApiLambdaGETServiceRole210B6205",
+                            "Arn"
+                          ]
+                        },
+                        "runtime": "nodejs22.x",
+                        "tags": [
+                          {
+                            "key": "sst:app",
+                            "value": "project-management-app"
+                          },
+                          {
+                            "key": "sst:stage",
+                            "value": "Dell"
+                          }
+                        ],
+                        "timeout": 10,
+                        "tracingConfig": {
+                          "mode": "Active"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                      "version": "2.179.0"
+                    }
+                  },
+                  "Lambda_GET_---Sourcemap": {
+                    "id": "Lambda_GET_---Sourcemap",
+                    "path": "Dell-project-management-app-/Api/Lambda_GET_--/Lambda_GET_---Sourcemap",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "Dell-project-management-app-/Api/Lambda_GET_--/Lambda_GET_---Sourcemap/Stage",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.AssetStaging",
+                          "version": "2.179.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "Dell-project-management-app-/Api/Lambda_GET_--/Lambda_GET_---Sourcemap/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                          "version": "2.179.0",
+                          "metadata": []
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                      "version": "2.179.0"
+                    }
+                  },
+                  "Code": {
+                    "id": "Code",
+                    "path": "Dell-project-management-app-/Api/Lambda_GET_--/Code",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "Dell-project-management-app-/Api/Lambda_GET_--/Code/Stage",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.AssetStaging",
+                          "version": "2.179.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "Dell-project-management-app-/Api/Lambda_GET_--/Code/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                          "version": "2.179.0",
+                          "metadata": []
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                      "version": "2.179.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.Function",
+                  "version": "2.179.0",
+                  "metadata": []
+                }
+              },
+              "Parameter_url": {
+                "id": "Parameter_url",
+                "path": "Dell-project-management-app-/Api/Parameter_url",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "Dell-project-management-app-/Api/Parameter_url/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::SSM::Parameter",
+                      "aws:cdk:cloudformation:props": {
+                        "name": "/sst/project-management-app/Dell/ApiGatewayV1Api/Api/url",
+                        "tags": {
+                          "sst:app": "project-management-app",
+                          "sst:stage": "Dell"
+                        },
+                        "type": "String",
+                        "value": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "https://",
+                              {
+                                "Ref": "ApiCD79AAA0"
+                              },
+                              ".execute-api.us-east-1.",
+                              {
+                                "Ref": "AWS::URLSuffix"
+                              },
+                              "/",
+                              {
+                                "Ref": "ApiDeploymentStageDell7BA9D724"
+                              },
+                              "/"
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ssm.CfnParameter",
+                      "version": "2.179.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ssm.StringParameter",
+                  "version": "2.179.0",
+                  "metadata": []
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.3.0"
+            }
+          },
+          "SSTStackOutputApiEndpoint": {
+            "id": "SSTStackOutputApiEndpoint",
+            "path": "Dell-project-management-app-/SSTStackOutputApiEndpoint",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.179.0"
+            }
+          },
+          "SSTStackOutputSSTMetadata": {
+            "id": "SSTStackOutputSSTMetadata",
+            "path": "Dell-project-management-app-/SSTStackOutputSSTMetadata",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.179.0"
+            }
+          },
+          "SourcemapUploaderPolicy": {
+            "id": "SourcemapUploaderPolicy",
+            "path": "Dell-project-management-app-/SourcemapUploaderPolicy",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Dell-project-management-app-/SourcemapUploaderPolicy/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                  "aws:cdk:cloudformation:props": {
+                    "policyDocument": {
+                      "Statement": [
+                        {
+                          "Action": [
+                            "s3:GetObject",
+                            "s3:GetObjectTagging",
+                            "s3:PutObject",
+                            "s3:PutObjectTagging"
+                          ],
+                          "Effect": "Allow",
+                          "Resource": [
+                            {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  ":s3:::cdk-hnb659fds-assets-130119007268-us-east-1/*"
+                                ]
+                              ]
+                            },
+                            {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  ":s3:::sstbootstrap-useast124d14e4b-awduuv7quw2t/*"
+                                ]
+                              ]
+                            }
+                          ]
+                        }
+                      ],
+                      "Version": "2012-10-17"
+                    },
+                    "policyName": "SourcemapUploaderPolicy6476872E",
+                    "roles": [
+                      {
+                        "Ref": "CustomResourceHandlerServiceRole41AEC181"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                  "version": "2.179.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_iam.Policy",
+              "version": "2.179.0",
+              "metadata": []
+            }
+          },
+          "SourcemapUploader": {
+            "id": "SourcemapUploader",
+            "path": "Dell-project-management-app-/SourcemapUploader",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "Dell-project-management-app-/SourcemapUploader/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.179.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CustomResource",
+              "version": "2.179.0",
+              "metadata": []
+            }
+          },
+          "BootstrapVersion": {
+            "id": "BootstrapVersion",
+            "path": "Dell-project-management-app-/BootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.179.0"
+            }
+          },
+          "CheckBootstrapVersion": {
+            "id": "CheckBootstrapVersion",
+            "path": "Dell-project-management-app-/CheckBootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnRule",
+              "version": "2.179.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.179.0"
+        }
+      },
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.3.0"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.179.0"
+    }
+  }
+}

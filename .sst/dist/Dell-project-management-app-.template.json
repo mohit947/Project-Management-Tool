@@ -1,0 +1,702 @@
+{
+ "Resources": {
+  "CustomResourceHandlerServiceRole41AEC181": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "sst:app",
+      "Value": "project-management-app"
+     },
+     {
+      "Key": "sst:stage",
+      "Value": "Dell"
+     }
+    ]
+   }
+  },
+  "CustomResourceHandlerE8FB56BA": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-130119007268-us-east-1",
+     "S3Key": "ed3f4b9a18da1c74484a8bdd39cc11e998021b8a2b37fd3fa777dff625f9f7a4.zip"
+    },
+    "Handler": "index.handler",
+    "MemorySize": 1024,
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomResourceHandlerServiceRole41AEC181",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Tags": [
+     {
+      "Key": "sst:app",
+      "Value": "project-management-app"
+     },
+     {
+      "Key": "sst:stage",
+      "Value": "Dell"
+     }
+    ],
+    "Timeout": 900
+   },
+   "DependsOn": [
+    "CustomResourceHandlerServiceRole41AEC181"
+   ]
+  },
+  "ApiLogGroup1717FE17": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "sst:app",
+      "Value": "project-management-app"
+     },
+     {
+      "Key": "sst:stage",
+      "Value": "Dell"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain"
+  },
+  "ApiCD79AAA0": {
+   "Type": "AWS::ApiGateway::RestApi",
+   "Properties": {
+    "Name": "Dell-project-management-app-Api",
+    "Tags": [
+     {
+      "Key": "sst:app",
+      "Value": "project-management-app"
+     },
+     {
+      "Key": "sst:stage",
+      "Value": "Dell"
+     }
+    ]
+   }
+  },
+  "ApiCloudWatchRoleCCA56614": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "apigateway.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "sst:app",
+      "Value": "project-management-app"
+     },
+     {
+      "Key": "sst:stage",
+      "Value": "Dell"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain"
+  },
+  "ApiAccount6C17A443": {
+   "Type": "AWS::ApiGateway::Account",
+   "Properties": {
+    "CloudWatchRoleArn": {
+     "Fn::GetAtt": [
+      "ApiCloudWatchRoleCCA56614",
+      "Arn"
+     ]
+    }
+   },
+   "DependsOn": [
+    "ApiCD79AAA0"
+   ],
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain"
+  },
+  "ApiDeploymentFE1E728289ad8ce293406d3c9c0dcb29b3d6c976": {
+   "Type": "AWS::ApiGateway::Deployment",
+   "Properties": {
+    "Description": "Automatically created by the RestApi construct",
+    "RestApiId": {
+     "Ref": "ApiCD79AAA0"
+    }
+   },
+   "DependsOn": [
+    "ApiGET7E3B0E56",
+    "ApiOPTIONS038759DB"
+   ]
+  },
+  "ApiDeploymentStageDell7BA9D724": {
+   "Type": "AWS::ApiGateway::Stage",
+   "Properties": {
+    "AccessLogSetting": {
+     "DestinationArn": {
+      "Fn::GetAtt": [
+       "ApiLogGroup1717FE17",
+       "Arn"
+      ]
+     },
+     "Format": "{\"requestTime\":\"$context.requestTime\",\"requestId\":\"$context.requestId\",\"httpMethod\":\"$context.httpMethod\",\"path\":\"$context.path\",\"resourcePath\":\"$context.resourcePath\",\"status\":$context.status,\"responseLatency\":$context.responseLatency,\"xrayTraceId\":\"$context.xrayTraceId\",\"integrationRequestId\":\"$context.integration.requestId\",\"functionResponseStatus\":\"$context.integration.status\",\"integrationLatency\":\"$context.integration.latency\",\"integrationServiceStatus\":\"$context.integration.integrationStatus\",\"ip\":\"$context.identity.sourceIp\",\"userAgent\":\"$context.identity.userAgent\",\"principalId\":\"$context.authorizer.principalId\"}"
+    },
+    "DeploymentId": {
+     "Ref": "ApiDeploymentFE1E728289ad8ce293406d3c9c0dcb29b3d6c976"
+    },
+    "RestApiId": {
+     "Ref": "ApiCD79AAA0"
+    },
+    "StageName": "Dell",
+    "Tags": [
+     {
+      "Key": "sst:app",
+      "Value": "project-management-app"
+     },
+     {
+      "Key": "sst:stage",
+      "Value": "Dell"
+     }
+    ],
+    "TracingEnabled": true
+   },
+   "DependsOn": [
+    "ApiAccount6C17A443"
+   ]
+  },
+  "ApiOPTIONS038759DB": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'*'",
+        "method.response.header.Access-Control-Allow-Origin": "'*'",
+        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Access-Control-Allow-Methods": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Fn::GetAtt": [
+      "ApiCD79AAA0",
+      "RootResourceId"
+     ]
+    },
+    "RestApiId": {
+     "Ref": "ApiCD79AAA0"
+    }
+   }
+  },
+  "ApiGETApiPermissionDellprojectmanagementappApi6EA08433GETA1012D64": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ApiLambdaGETB1714EF3",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:130119007268:",
+       {
+        "Ref": "ApiCD79AAA0"
+       },
+       "/",
+       {
+        "Ref": "ApiDeploymentStageDell7BA9D724"
+       },
+       "/GET/"
+      ]
+     ]
+    }
+   }
+  },
+  "ApiGETApiPermissionTestDellprojectmanagementappApi6EA08433GETCA9374E4": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ApiLambdaGETB1714EF3",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:130119007268:",
+       {
+        "Ref": "ApiCD79AAA0"
+       },
+       "/test-invoke-stage/GET/"
+      ]
+     ]
+    }
+   }
+  },
+  "ApiGET7E3B0E56": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "GET",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "ApiLambdaGETB1714EF3",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Fn::GetAtt": [
+      "ApiCD79AAA0",
+      "RootResourceId"
+     ]
+    },
+    "RestApiId": {
+     "Ref": "ApiCD79AAA0"
+    }
+   }
+  },
+  "ApiLambdaGETServiceRole210B6205": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "sst:app",
+      "Value": "project-management-app"
+     },
+     {
+      "Key": "sst:stage",
+      "Value": "Dell"
+     }
+    ]
+   }
+  },
+  "ApiLambdaGETServiceRoleDefaultPolicy013A8DEA": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "xray:PutTraceSegments",
+        "xray:PutTelemetryRecords"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ApiLambdaGETServiceRoleDefaultPolicy013A8DEA",
+    "Roles": [
+     {
+      "Ref": "ApiLambdaGETServiceRole210B6205"
+     }
+    ]
+   }
+  },
+  "ApiLambdaGETB1714EF3": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "x86_64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-130119007268-us-east-1",
+     "S3Key": "946b5913da4401c408683f22e4e3d519f2e1fd11462bd6940d407765f47e7e91.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+      "SST_APP": "project-management-app",
+      "SST_STAGE": "Dell",
+      "SST_SSM_PREFIX": "/sst/project-management-app/Dell/"
+     }
+    },
+    "EphemeralStorage": {
+     "Size": 512
+    },
+    "Handler": "functions/lambda.handler",
+    "MemorySize": 1024,
+    "Role": {
+     "Fn::GetAtt": [
+      "ApiLambdaGETServiceRole210B6205",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Tags": [
+     {
+      "Key": "sst:app",
+      "Value": "project-management-app"
+     },
+     {
+      "Key": "sst:stage",
+      "Value": "Dell"
+     }
+    ],
+    "Timeout": 10,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
+   },
+   "DependsOn": [
+    "ApiLambdaGETServiceRoleDefaultPolicy013A8DEA",
+    "ApiLambdaGETServiceRole210B6205"
+   ]
+  },
+  "ApiParameterurl09B86AB9": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Name": "/sst/project-management-app/Dell/ApiGatewayV1Api/Api/url",
+    "Tags": {
+     "sst:app": "project-management-app",
+     "sst:stage": "Dell"
+    },
+    "Type": "String",
+    "Value": {
+     "Fn::Join": [
+      "",
+      [
+       "https://",
+       {
+        "Ref": "ApiCD79AAA0"
+       },
+       ".execute-api.us-east-1.",
+       {
+        "Ref": "AWS::URLSuffix"
+       },
+       "/",
+       {
+        "Ref": "ApiDeploymentStageDell7BA9D724"
+       },
+       "/"
+      ]
+     ]
+    }
+   }
+  },
+  "SourcemapUploaderPolicy6476872E": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:GetObject",
+        "s3:GetObjectTagging",
+        "s3:PutObject",
+        "s3:PutObjectTagging"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":s3:::cdk-hnb659fds-assets-130119007268-us-east-1/*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":s3:::sstbootstrap-useast124d14e4b-awduuv7quw2t/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "SourcemapUploaderPolicy6476872E",
+    "Roles": [
+     {
+      "Ref": "CustomResourceHandlerServiceRole41AEC181"
+     }
+    ]
+   }
+  },
+  "SourcemapUploader": {
+   "Type": "Custom::SourcemapUploader",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomResourceHandlerE8FB56BA",
+      "Arn"
+     ]
+    },
+    "app": "project-management-app",
+    "stage": "Dell",
+    "tarBucket": "sstbootstrap-useast124d14e4b-awduuv7quw2t",
+    "srcBucket": "cdk-hnb659fds-assets-130119007268-us-east-1",
+    "sourcemaps": [
+     [
+      {
+       "Fn::GetAtt": [
+        "ApiLambdaGETB1714EF3",
+        "Arn"
+       ]
+      },
+      "5385a3a45e8e05a4216e71a928fab6e2bf716c72ac062fd261913633dcffb1e0.map"
+     ]
+    ]
+   },
+   "DependsOn": [
+    "SourcemapUploaderPolicy6476872E"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  }
+ },
+ "Outputs": {
+  "ApiEndpoint1541504C": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "ApiCD79AAA0"
+      },
+      ".execute-api.us-east-1.",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "ApiDeploymentStageDell7BA9D724"
+      },
+      "/"
+     ]
+    ]
+   }
+  },
+  "ApiEndpoint": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "ApiCD79AAA0"
+      },
+      ".execute-api.us-east-1.",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "ApiDeploymentStageDell7BA9D724"
+      },
+      "/"
+     ]
+    ]
+   }
+  },
+  "SSTMetadata": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "{\"app\":\"project-management-app\",\"stage\":\"Dell\",\"version\":\"2.48.5\",\"metadata\":[{\"id\":\"Api\",\"addr\":\"c8f618584be522f05a5aaa43b4f296a70a71e79785\",\"stack\":\"Dell-project-management-app-\",\"type\":\"ApiGatewayV1Api\",\"data\":{\"url\":\"https://",
+      {
+       "Ref": "ApiCD79AAA0"
+      },
+      ".execute-api.us-east-1.",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "ApiDeploymentStageDell7BA9D724"
+      },
+      "/\",\"restApiId\":\"",
+      {
+       "Ref": "ApiCD79AAA0"
+      },
+      "\",\"routes\":[{\"type\":\"function\",\"route\":\"GET /\",\"fn\":{\"node\":\"c85e5b434dc252bc0dcef91ebe0b335b23419f4283\",\"stack\":\"Dell-project-management-app-\"}}]}},{\"id\":\"Lambda_GET_--\",\"addr\":\"c85e5b434dc252bc0dcef91ebe0b335b23419f4283\",\"stack\":\"Dell-project-management-app-\",\"type\":\"Function\",\"data\":{\"arn\":\"",
+      {
+       "Fn::GetAtt": [
+        "ApiLambdaGETB1714EF3",
+        "Arn"
+       ]
+      },
+      "\",\"runtime\":\"nodejs22.x\",\"handler\":\"functions/lambda.handler\",\"localId\":\"c85e5b434dc252bc0dcef91ebe0b335b23419f4283\",\"secrets\":[]}}]}"
+     ]
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

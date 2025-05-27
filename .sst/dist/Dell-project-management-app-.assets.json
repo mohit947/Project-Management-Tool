@@ -1,0 +1,62 @@
+{
+  "version": "39.0.0",
+  "files": {
+    "ed3f4b9a18da1c74484a8bdd39cc11e998021b8a2b37fd3fa777dff625f9f7a4": {
+      "source": {
+        "path": "asset.ed3f4b9a18da1c74484a8bdd39cc11e998021b8a2b37fd3fa777dff625f9f7a4",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "130119007268-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-130119007268-us-east-1",
+          "objectKey": "ed3f4b9a18da1c74484a8bdd39cc11e998021b8a2b37fd3fa777dff625f9f7a4.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::130119007268:role/cdk-hnb659fds-file-publishing-role-130119007268-us-east-1"
+        }
+      }
+    },
+    "5385a3a45e8e05a4216e71a928fab6e2bf716c72ac062fd261913633dcffb1e0": {
+      "source": {
+        "path": "asset.5385a3a45e8e05a4216e71a928fab6e2bf716c72ac062fd261913633dcffb1e0.map",
+        "packaging": "file"
+      },
+      "destinations": {
+        "130119007268-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-130119007268-us-east-1",
+          "objectKey": "5385a3a45e8e05a4216e71a928fab6e2bf716c72ac062fd261913633dcffb1e0.map",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::130119007268:role/cdk-hnb659fds-file-publishing-role-130119007268-us-east-1"
+        }
+      }
+    },
+    "946b5913da4401c408683f22e4e3d519f2e1fd11462bd6940d407765f47e7e91": {
+      "source": {
+        "path": "asset.946b5913da4401c408683f22e4e3d519f2e1fd11462bd6940d407765f47e7e91",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "130119007268-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-130119007268-us-east-1",
+          "objectKey": "946b5913da4401c408683f22e4e3d519f2e1fd11462bd6940d407765f47e7e91.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::130119007268:role/cdk-hnb659fds-file-publishing-role-130119007268-us-east-1"
+        }
+      }
+    },
+    "7e1fe1f1d0b94db99749d52f6799c3bb8b0ad7dbc606883bbf35d9571025a65e": {
+      "source": {
+        "path": "Dell-project-management-app-.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "130119007268-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-130119007268-us-east-1",
+          "objectKey": "7e1fe1f1d0b94db99749d52f6799c3bb8b0ad7dbc606883bbf35d9571025a65e.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::130119007268:role/cdk-hnb659fds-file-publishing-role-130119007268-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

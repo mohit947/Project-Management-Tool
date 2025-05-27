@@ -1,0 +1,204 @@
+{
+  "version": "39.0.0",
+  "artifacts": {
+    "Dell-project-management-app-.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "Dell-project-management-app-.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "Dell-project-management-app-": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://130119007268/us-east-1",
+      "properties": {
+        "templateFile": "Dell-project-management-app-.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "sst:app": "project-management-app",
+          "sst:stage": "Dell"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::130119007268:role/cdk-hnb659fds-deploy-role-130119007268-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::130119007268:role/cdk-hnb659fds-cfn-exec-role-130119007268-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-130119007268-us-east-1/7e1fe1f1d0b94db99749d52f6799c3bb8b0ad7dbc606883bbf35d9571025a65e.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "Dell-project-management-app-.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::130119007268:role/cdk-hnb659fds-lookup-role-130119007268-us-east-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "Dell-project-management-app-.assets"
+      ],
+      "metadata": {
+        "/Dell-project-management-app-": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "sst:app",
+                "Value": "project-management-app"
+              },
+              {
+                "Key": "sst:stage",
+                "Value": "Dell"
+              }
+            ]
+          }
+        ],
+        "/Dell-project-management-app-/CustomResourceHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomResourceHandlerServiceRole41AEC181"
+          }
+        ],
+        "/Dell-project-management-app-/CustomResourceHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomResourceHandlerE8FB56BA"
+          }
+        ],
+        "/Dell-project-management-app-/Api/LogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiLogGroup1717FE17"
+          }
+        ],
+        "/Dell-project-management-app-/Api/Api/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiCD79AAA0"
+          }
+        ],
+        "/Dell-project-management-app-/Api/Api/CloudWatchRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiCloudWatchRoleCCA56614"
+          }
+        ],
+        "/Dell-project-management-app-/Api/Api/Account": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiAccount6C17A443"
+          }
+        ],
+        "/Dell-project-management-app-/Api/Api/Deployment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiDeploymentFE1E728289ad8ce293406d3c9c0dcb29b3d6c976"
+          }
+        ],
+        "/Dell-project-management-app-/Api/Api/DeploymentStage.Dell/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiDeploymentStageDell7BA9D724"
+          }
+        ],
+        "/Dell-project-management-app-/Api/Api/Endpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiEndpoint1541504C"
+          }
+        ],
+        "/Dell-project-management-app-/Api/Api/Default/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiOPTIONS038759DB"
+          }
+        ],
+        "/Dell-project-management-app-/Api/Api/Default/GET/ApiPermission.DellprojectmanagementappApi6EA08433.GET..": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiGETApiPermissionDellprojectmanagementappApi6EA08433GETA1012D64"
+          }
+        ],
+        "/Dell-project-management-app-/Api/Api/Default/GET/ApiPermission.Test.DellprojectmanagementappApi6EA08433.GET..": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiGETApiPermissionTestDellprojectmanagementappApi6EA08433GETCA9374E4"
+          }
+        ],
+        "/Dell-project-management-app-/Api/Api/Default/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiGET7E3B0E56"
+          }
+        ],
+        "/Dell-project-management-app-/Api/Lambda_GET_--/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiLambdaGETServiceRole210B6205"
+          }
+        ],
+        "/Dell-project-management-app-/Api/Lambda_GET_--/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiLambdaGETServiceRoleDefaultPolicy013A8DEA"
+          }
+        ],
+        "/Dell-project-management-app-/Api/Lambda_GET_--/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiLambdaGETB1714EF3"
+          }
+        ],
+        "/Dell-project-management-app-/Api/Parameter_url/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiParameterurl09B86AB9"
+          }
+        ],
+        "/Dell-project-management-app-/SSTStackOutputApiEndpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiEndpoint"
+          }
+        ],
+        "/Dell-project-management-app-/SSTStackOutputSSTMetadata": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SSTMetadata"
+          }
+        ],
+        "/Dell-project-management-app-/SourcemapUploaderPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SourcemapUploaderPolicy6476872E"
+          }
+        ],
+        "/Dell-project-management-app-/SourcemapUploader/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SourcemapUploader"
+          }
+        ],
+        "/Dell-project-management-app-/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/Dell-project-management-app-/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "Dell-project-management-app-"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
